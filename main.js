@@ -68,7 +68,18 @@ function checkWin() {
         circleIguais = 0 // Caso o X ou o Circle não tenham os 3 para a vitória,
         xIguais = 0 // a contagem de igual deles será zerada
     }
-
+    var quadradosVazios = 0
+    for (field of fields) {
+        if(!field.classList.contains('choiceX') && !field.classList.contains('choiceCircle')) {
+            quadradosVazios ++
+        }
+    }
+    if (quadradosVazios == 0) {
+        jogoTerminado = true
+        winner = "Empate"
+        document.getElementsByTagName('h1')[0].innerHTML = `Empatou`
+        return jogoTerminado
+    }
     if (xIguais >= 3) {
         winner = "x"
         jogoTerminado = true
