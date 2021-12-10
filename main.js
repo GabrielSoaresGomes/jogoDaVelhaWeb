@@ -2,34 +2,38 @@ var turno = "X"
 win = [[0,1,2], [3,4,5], [6,7,8],//Horizontais - Horizontals
        [0,3,6], [1,4,7], [2,5,8], //Verticais - Verticals
           [0,4,8], [2,4,6]] //Diagonais - Diagonals
+var jogoTerminado = false
 function insert(clickedField) {
-
-    clickedField = parseInt(clickedField)
-    let fields = document.getElementsByClassName('field')
-    for (let field of fields) {
-        var classX = field.classList.contains('choiceX')
-        var classCircle = field.classList.contains('choiceCircle')
-        if (field.innerHTML == clickedField && turno == "X" && !classX && !classCircle) {
-            field.classList.add('choiceX')
-            if (turno == "X" && classX == false && classCircle == false) {
-                turno = "circle"
-            } else if (turno == "circle" && classCircle == false && classX == false) {
-                turno = "X"
-            }
-        } else if (field.innerHTML == clickedField && turno == "circle" && !classCircle && !classX) {
-            field.classList.add('choiceCircle')
-            if (turno == "X" && classX == false && classCircle == false) {
-                turno = "circle"
-            } else if (turno == "circle" && classCircle == false && classX == false) {
-                turno = "X"
+    if (jogoTerminado == false) {
+        clickedField = parseInt(clickedField)
+        let fields = document.getElementsByClassName('field')
+        for (let field of fields) {
+            var classX = field.classList.contains('choiceX')
+            var classCircle = field.classList.contains('choiceCircle')
+            if (field.innerHTML == clickedField && turno == "X" && !classX && !classCircle) {
+                field.classList.add('choiceX')
+                if (turno == "X" && classX == false && classCircle == false) {
+                    turno = "circle"
+                } else if (turno == "circle" && classCircle == false && classX == false) {
+                    turno = "X"
+                }
+            } else if (field.innerHTML == clickedField && turno == "circle" && !classCircle && !classX) {
+                field.classList.add('choiceCircle')
+                if (turno == "X" && classX == false && classCircle == false) {
+                    turno = "circle"
+                } else if (turno == "circle" && classCircle == false && classX == false) {
+                    turno = "X"
+                }
             }
         }
+        checkWin()
+        jogoTerminado = checkWin()
     }
-    checkWin()
 
 }
 var winner = ""
 function checkWin() {
+    var jogoTerminado = false
     var winner = ""
     var markedX = []
     var markedCircle = []
@@ -46,8 +50,8 @@ function checkWin() {
         }
     }
     var i = 0
-    for (var w of win) {
-        for (var n of w) {
+    for (var w of win) { // w = [0,1,2] - [3,4,5] etx
+        for (var n of w) { // n = 0 - 1 - 2 -- 3 - 4 -5
             if (markedX.includes(n)) {
                 xIguais++
             }
@@ -63,17 +67,20 @@ function checkWin() {
             }
         oIguais = 0
         xIguais = 0
-
-
     }
     console.log(xIguais)
     if (xIguais >= 3) {
         winner = "x"
+        jogoTerminado = true
         document.getElementsByTagName('h1')[0].innerHTML = `O vencedor foi o Vermelho`
+        return jogoTerminado
     }
     if (oIguais >= 3) {
         winner = "o"
+        jogoTerminado = true
         document.getElementsByTagName('h1')[0].innerHTML = `O vencedor foi o Verde`
+        return jogoTerminado
     }
+    return jogoTerminado
 
 }
