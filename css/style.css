@@ -20,6 +20,7 @@ div.game {
 }
 
 div.field {
+    user-select: none;
     border: 1px solid #000000;
     width: 100px;
     color: transparent;
