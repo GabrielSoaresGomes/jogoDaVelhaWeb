@@ -21,11 +21,13 @@ function insert(clickedField) { // A funçao principal, roda ao clicar em qualqu
                 field.classList.add('choiceX')
                 //Abaixo segue a várivel de turno trocando
                 turno = "circle"
+                document.getElementById('turno').innerHTML = 'Turno do Verde'
 
             //Mesma regra do if ali de cima, só que para o turno do circulo
             } else if (field.innerHTML == clickedField && turno == "circle" && !classCircle && !classX) {
                 field.classList.add('choiceCircle')
                 turno = "X"
+                document.getElementById('turno').innerHTML = 'Turno do Vermelho'
             }
         }
         checkWin() // Após toda jogada, é checado se teve algum vencedor
@@ -49,7 +51,6 @@ function checkWin() {
             markedCircle.push(parseInt(field.innerHTML))
         }
     }
-    var i = 0
     for (var w of win) { // w = [0,1,2] - [3,4,5] etc
         for (var n of w) { // n = 0 - 1 - 2 -- 3 - 4 -5
             if (markedX.includes(n)) { // Se os x marcados incluirem o valor de n, vai somar mais um para o x
@@ -74,12 +75,6 @@ function checkWin() {
             quadradosVazios ++
         }
     }
-    if (quadradosVazios == 0) {
-        jogoTerminado = true
-        winner = "Empate"
-        document.getElementsByTagName('h1')[0].innerHTML = `Empatou`
-        return jogoTerminado
-    }
     if (xIguais >= 3) {
         winner = "x"
         jogoTerminado = true
@@ -92,6 +87,12 @@ function checkWin() {
         document.getElementsByTagName('h1')[0].innerHTML = `O vencedor foi o Verde`
         return jogoTerminado
     }
+    if (quadradosVazios == 0) {
+    jogoTerminado = true
+    winner = "Empate"
+    document.getElementsByTagName('h1')[0].innerHTML = `Empatou`
+    return jogoTerminado
+}
     return jogoTerminado
 
 }

@@ -27,10 +27,18 @@ div.field {
     height: 100px;
 }
 
+div.field img {
+    width: 100px;
+}
+
 div.choiceX {
     background-color: red;
+    /*background-image: url("../img/alvaro.jpg");*/
+    /*background-size: 100px;*/
 }
 
 div.choiceCircle {
     background-color: green;
+    /*background-image: url("../img/mizael.jpg");*/
+    /*background-size: 100px;*/
 }
